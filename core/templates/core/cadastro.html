@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Usuário</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; max-width: 400px; border-top: 5px solid #5a2d9c; }
+        h2 { color: #5a2d9c; text-align: center; }
+        .btn { background-color: #5a2d9c; color: white; border: none; padding: 10px; width: 100%; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 15px; }
+        .btn:hover { background-color: #432075; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Criar Conta</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn">Cadastrar</button>
+        </form>
+    </div>
+
+</body>
+</html>
