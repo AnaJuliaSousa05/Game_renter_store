@@ -1,9 +1,6 @@
 from urllib import request
-
-from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login as auth_login
-from .models import Jogo
 from .forms import CriarUsuarioForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
@@ -28,7 +25,6 @@ def cadastro(request):
 
   return render (request, 'core/cadastro.html', {'form': form})
 
-    
 @login_required
 def alugar_jogo(request, jogo_id):
    jogo = get_object_or_404(Jogo, id=jogo_id)
@@ -45,7 +41,6 @@ def alugar_jogo(request, jogo_id):
       jogo = jogo,
       dias = dias_informados 
       )
-
       jogo.alugado= True
       jogo.save()
 
@@ -63,11 +58,9 @@ def devolver_jogo(request, locacao_id):
         
         locacao = get_object_or_404(Locacao, id=locacao_id, cliente=request.user)
 
-        
         locacao.devolvido = True
         locacao.save()
 
-        
         jogo = locacao.jogo
         jogo.alugado = False
         jogo.save()

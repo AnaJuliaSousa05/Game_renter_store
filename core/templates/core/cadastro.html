@@ -2,25 +2,173 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro de Usuário</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Locadora de Jogos</title>
+    <!-- Fonte Google Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; max-width: 400px; border-top: 5px solid #5a2d9c; }
-        h2 { color: #5a2d9c; text-align: center; }
-        .btn { background-color: #5a2d9c; color: white; border: none; padding: 10px; width: 100%; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 15px; }
-        .btn:hover { background-color: #432075; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            border: 1px solid #e2e8f0;
+            width: 100%;
+            max-width: 440px;
+        }
+
+        .header-card {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .header-card h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .header-card p {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-top: 0.25rem;
+        }
+
+        /* ESTILIZAÇÃO AUTOMÁTICA DO {{ form.as_p }} DO DJANGO */
+        form p {
+            margin-bottom: 1.25rem;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+            color: #334155;
+        }
+
+        form input[type="text"],
+        form input[type="password"],
+        form input[type="email"] {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: #0f172a;
+            outline: none;
+            transition: all 0.2s ease;
+            background-color: #f8fafc;
+        }
+
+        form input[type="text"]:focus,
+        form input[type="password"]:focus,
+        form input[type="email"]:focus {
+            background-color: #ffffff;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+        }
+
+        /* Texto de ajuda padrão dos formulários do Django (ex: regras de senha) */
+        .helptext {
+            display: block;
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-top: 0.35rem;
+            line-height: 1.4;
+        }
+
+        /* Lista de erros por campo */
+        .errorlist {
+            list-style: none;
+            color: #ef4444;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 0.35rem;
+        }
+
+        /* Botão de Envio */
+        .btn {
+            width: 100%;
+            padding: 0.85rem;
+            background-color: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #4338ca;
+        }
+
+        .footer-text {
+            margin-top: 1.75rem;
+            font-size: 0.875rem;
+            text-align: center;
+            color: #64748b;
+        }
+
+        .footer-text a {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer-text a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
 
     <div class="card">
-        <h2>Criar Conta</h2>
+        <div class="header-card">
+            <h2>Criar Conta</h2>
+            <p>Preencha os campos abaixo para se cadastrar</p>
+        </div>
 
+        {# Formulário de Cadastro #}
         <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}
+            
             <button type="submit" class="btn">Cadastrar</button>
         </form>
+
+        <p class="footer-text">
+            Já tem uma conta? <a href="{% url 'login' %}">Faça login</a>
+        </p>
     </div>
 
 </body>

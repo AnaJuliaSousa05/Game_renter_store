@@ -2,26 +2,221 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alugar Jogo - {{ jogo.titulo }}</title>
+    <!-- Fonte Google Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        .checkout-card {
+            background: #ffffff;
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            border: 1px solid #e2e8f0;
+            width: 100%;
+            max-width: 440px;
+        }
+
+        .header-card {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .header-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .header-card h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .header-card p {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-top: 0.25rem;
+        }
+
+        /* Resumo do Jogo */
+        .game-summary {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .game-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+
+        .plataforma {
+            display: inline-block;
+            background-color: #e0e7ff;
+            color: #4338ca;
+            padding: 0.2rem 0.6rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            margin-bottom: 0.75rem;
+        }
+
+        .price-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 0.75rem;
+            border-top: 1px dashed #cbd5e1;
+            font-size: 0.9rem;
+        }
+
+        .price-label {
+            color: #64748b;
+        }
+
+        .price-value {
+            font-weight: 700;
+            color: #16a34a;
+            font-size: 1.1rem;
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+            color: #334155;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: #0f172a;
+            outline: none;
+            transition: all 0.2s ease;
+            background-color: #ffffff;
+        }
+
+        input[type="number"]:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+        }
+
+        /* Botões de Ação */
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .btn-confirm {
+            width: 100%;
+            padding: 0.85rem;
+            background-color: #16a34a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-confirm:hover {
+            background-color: #15803d;
+        }
+
+        .btn-cancel {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 0.75rem;
+            background-color: transparent;
+            color: #64748b;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-cancel:hover {
+            background-color: #f1f5f9;
+            color: #1e293b;
+        }
+    </style>
 </head>
 <body>
-    <h1>Alugar {{ jogo.titulo }}</h1>
-    <p>Plataforma: {{ jogo.plataforma }}</p>
-    <p>Preço da Diária: R$ {{ jogo.preco_diaria }}</p>
 
-    <hr>
+    <div class="checkout-card">
+        <div class="header-card">
+            <span class="icon">🛒</span>
+            <h1>Confirmar Locação</h1>
+            <p>Escolha o período do aluguel</p>
+        </div>
 
-    
-    <form method="POST">
-        {% csrf_token %}
-        <label for="dias">Quantidade de dias:</label>
-        <input type="number" id="dias" name="dias" value="1" min="1" required>
+        {# Resumo do Jogo Selecionado #}
+        <div class="game-summary">
+            <div class="game-title">{{ jogo.titulo }}</div>
+            <span class="plataforma">{{ jogo.plataforma }}</span>
+            
+            <div class="price-info">
+                <span class="price-label">Valor por dia:</span>
+                <span class="price-value">R$ {{ jogo.preco_diaria }}</span>
+            </div>
+        </div>
 
-        <br><br>
-        <button type="submit">Confirmar Aluguel</button>
-    </form>
+        {# Formulário de confirmação #}
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="dias">Quantidade de dias desejados:</label>
+                <input type="number" id="dias" name="dias" value="1" min="1" required autofocus>
+            </div>
 
-    <br>
-    <a href="{% url 'home' %}">Cancelar e Voltar</a>
+            <div class="actions">
+                <button type="submit" class="btn-confirm">Confirmar e Alugar</button>
+                <a href="{% url 'home' %}" class="btn-cancel">Cancelar e Voltar</a>
+            </div>
+        </form>
+    </div>
+
 </body>
 </html>
